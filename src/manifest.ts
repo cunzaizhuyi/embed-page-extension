@@ -3,7 +3,7 @@ import type { Manifest } from 'webextension-polyfill'
 import type PkgType from '../package.json'
 import { isDev, isFirefox, port, r } from '../scripts/utils'
 
-export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
+export async function getManifest() {
   const pkg = await fs.readJSON(r('package.json')) as typeof PkgType
 
   // update this file to update this manifest.json
@@ -35,11 +35,8 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
       128: './assets/icon.png',
     },
     permissions: [
-      // 'storage',
-      // 'activeTab'
-    ],
-    host_permissions: [
-      'https://www.producthunt.com/*',
+      'storage',
+      'activeTab',
     ],
     content_scripts: [
       {
