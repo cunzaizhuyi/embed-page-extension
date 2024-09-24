@@ -1,55 +1,14 @@
 <script setup lang="ts">
-import browser from 'webextension-polyfill'
 import packageJson from '../../package.json' // 导入 package.json
-import { hiddenExtensions, showExtensions } from '~/composables/useToggleExt'
-import ButtonComponent from '~/components/Button.vue'
 
 // 版本号
 const version = packageJson.version // 获取版本号
-
-onMounted(async () => {
-  const [tab] = await browser.tabs.query({ active: true, currentWindow: true })
-  if (tab.url) {
-  }
-})
-
-async function handleUpMode() {
-  await hiddenExtensions()
-  setTimeout(() => {
-    !__DEV__ && window.close()
-  }, 300)
-}
-async function handleReset() {
-  await showExtensions()
-  setTimeout(() => {
-    !__DEV__ && window.close()
-  }, 300)
-}
 </script>
 
 <template>
   <main class="w-[300px] px-4 py-5 text-gray-700">
-    <!-- 添加按钮 -->
-    <!-- <div class="flex justify-around mb-4">
-      <ButtonComponent
-        bg-color="#409eff"
-        txt-color="white"
-        class="w-150px"
-        @click="handleUpMode"
-      >
-        Hide All Extensions
-      </ButtonComponent>
-      <ButtonComponent
-        bg-color="#909399"
-        txt-color="white"
-        class="w-100px"
-        @click="handleReset"
-      >
-        Reset
-      </ButtonComponent>
-    </div> -->
-
     <!-- 添加 GitHub 链接 -->
+    <div>Click the icon in the bottom right corner of the page.</div>
     <div class="mt-4 flex justify-center">
       <a href="https://github.com/cunzaizhuyi/embed-page-extension" target="_blank" class="flex items-center text-black hover:underline">
         <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 16 16" class="w-5 h-5 mr-2">
