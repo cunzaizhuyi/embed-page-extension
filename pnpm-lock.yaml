@@ -7,6 +7,10 @@ settings:
 importers:
 
   .:
+    dependencies:
+      interactjs:
+        specifier: ^1.10.27
+        version: 1.10.27
     devDependencies:
       '@antfu/eslint-config':
         specifier: ^2.27.0
@@ -17,6 +21,9 @@ importers:
       '@iconify/json':
         specifier: ^2.2.239
         version: 2.2.239
+      '@interactjs/types':
+        specifier: ^1.10.27
+        version: 1.10.27
       '@playwright/test':
         specifier: ^1.46.1
         version: 1.46.1
@@ -703,6 +710,9 @@ packages:
 
   '@iconify/utils@2.1.31':
     resolution: {integrity: sha512-WCu65iVaFRXyGU+op12XVbDZgIov0vzMIlUokZ1WR42cU2wwYMks/pZY8v0tE72W8ShXVaprO79Jv6EjYm3Sjw==}
+
+  '@interactjs/types@1.10.27':
+    resolution: {integrity: sha512-BUdv0cvs4H5ODuwft2Xp4eL8Vmi3LcihK42z0Ft/FbVJZoRioBsxH+LlsBdK4tAie7PqlKGy+1oyOncu1nQ6eA==}
 
   '@isaacs/cliui@8.0.2':
     resolution: {integrity: sha512-O8jcjabXaleOG9DQ0+ARXWZBTfnP4WNAqzuiJK7ll44AmxGKv/J2M4TPjxjY3znBCfvBXFzucm1twdyFybFqEA==}
@@ -2575,6 +2585,9 @@ packages:
   ini@2.0.0:
     resolution: {integrity: sha512-7PnF4oN3CvZF23ADhA5wRaYEQpJ8qygSkbtTXWBeXWXmEVRXK+1ITciHWwHhsjv1TmW0MgacIv6hEi5pX5NQdA==}
     engines: {node: '>=10'}
+
+  interactjs@1.10.27:
+    resolution: {integrity: sha512-y/8RcCftGAF24gSp76X2JS3XpHiUvDQyhF8i7ujemBz77hwiHDuJzftHx7thY8cxGogwGiPJ+o97kWB6eAXnsA==}
 
   internal-slot@1.0.7:
     resolution: {integrity: sha512-NGnrKwXzSms2qUUih/ILZ5JBqNTSa1+ZmP6flaIp6KmSElgE9qdndzS3cqjrDovwFdmwsGsLdeFgB6suw+1e9g==}
@@ -5104,6 +5117,8 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
+  '@interactjs/types@1.10.27': {}
+
   '@isaacs/cliui@8.0.2':
     dependencies:
       string-width: 5.1.2
@@ -7398,6 +7413,10 @@ snapshots:
   ini@1.3.8: {}
 
   ini@2.0.0: {}
+
+  interactjs@1.10.27:
+    dependencies:
+      '@interactjs/types': 1.10.27
 
   internal-slot@1.0.7:
     dependencies:

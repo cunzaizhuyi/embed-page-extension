@@ -1,6 +1,6 @@
 {
-  "name": "free-ph-extension",
-  "displayName": "PH Free Filter",
+  "name": "free-draw-extension",
+  "displayName": "Free Draw",
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@9.9.0",
@@ -34,6 +34,7 @@
     "@antfu/eslint-config": "^2.27.0",
     "@ffflorian/jszip-cli": "^3.7.1",
     "@iconify/json": "^2.2.239",
+    "@interactjs/types": "^1.10.27",
     "@playwright/test": "^1.46.1",
     "@types/fs-extra": "^11.0.4",
     "@types/node": "^22.5.0",
@@ -74,5 +75,8 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
+  },
+  "dependencies": {
+    "interactjs": "^1.10.27"
   }
 }

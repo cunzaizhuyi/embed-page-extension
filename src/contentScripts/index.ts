@@ -1,213 +1,203 @@
+import browser from 'webextension-polyfill';
+import interact from 'interactjs';
+
 // 创建按钮元素的函数
 function createButton() {
-  const button = document.createElement('button')
+  const button = document.createElement('button');
 
   // 设置按钮的样式以固定在右下角并使其圆形
-  button.style.position = 'fixed'
-  button.style.bottom = '20px' // 距离底部20px
-  button.style.right = '20px' // 距离右侧20px
-  button.style.zIndex = '10001' // 确保按钮在其他元素之上
-  button.style.width = '50px' // 按钮宽度
-  button.style.height = '50px' // 按钮高度
-  button.style.borderRadius = '50%' // 圆形按钮
-  button.style.border = 'none' // 去掉边框
-  button.style.backgroundColor = 'white' // 背景颜色
-  button.style.cursor = 'pointer' // 鼠标指针样式
+  button.style.position = 'fixed';
+  button.style.bottom = '20px'; // 距离底部20px
+  button.style.right = '20px'; // 距离右侧20px
+  button.style.zIndex = '10001'; // 确保按钮在其他元素之上
+  button.style.width = '50px'; // 按钮宽度
+  button.style.height = '50px'; // 按钮高度
+  button.style.borderRadius = '50%'; // 圆形按钮
+  button.style.border = '1px solid #ccc'; 
+  button.style.backgroundColor = 'white'; // 背景颜色
+  button.style.cursor = 'pointer'; // 鼠标指针样式
+  button.style.padding = '0'; // 移除内边距
+  button.style.overflow = 'hidden'; // 确保图片不会溢出按钮
+  button.style.padding = '5px';
 
-  // 创建SVG图标
-  const svgIcon = `
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
-      <path d="M2 12c0-1.1.9-2 2-2h1.5c.55 0 1 .45 1 1s-.45 1-1 1H4c-.55 0-1 .45-1 1s.45 1 1 1h1.5c.55 0 1 .45 1 1s-.45 1-1 1H4c-1.1 0-2-.9-2-2zm20 0c0 1.1-.9 2-2 2h-1.5c-.55 0-1-.45-1-1s.45-1 1-1H20c.55 0 1-.45 1-1s-.45-1-1-1h-1.5c-.55 0-1-.45-1-1s.45-1 1-1H20c1.1 0 2 .9 2 2zm-8-8c0-1.1.9-2 2-2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2zm-4-8c0-1.1.9-2 2-2h1.5c.55 0 1 .45 1 1s-.45 1-1 1H10c-.55 0-1 .45-1 1s.45 1 1 1h1.5c.55 0 1 .45 1 1s-.45 1-1 1H10c-1.1 0-2-.9-2-2zm8-8c0 1.1-.9 2-2 2s-2-.9-2-2 .9-2 2-2 2 .9 2 2zm-2 16c-1.1 0-2-.9-2-2s.9-2 2-2 2 .9 2 2-.9 2-2 2z"/>
-    </svg>
-  `
+  // 创建图片元素
+  const img = document.createElement('img');
+  img.src = browser.runtime.getURL('assets/pencil.png'); // 假设图片位于 assets 文件夹中
+  img.style.width = '100%';
+  img.style.height = '100%';
+  img.style.objectFit = 'cover'; // 确保图片填满按钮
 
-  button.innerHTML = svgIcon // 将SVG图标插入按钮
+  button.appendChild(img);
 
-  return button
+  return button;
 }
 
 // 创建iframe元素的函数
 function createIframe() {
-  const iframe = document.createElement('iframe')
-  iframe.src = 'https://excalidraw.com/'
-  iframe.style.border = 'none' // 去掉边框
-  iframe.style.backgroundColor = 'white'
-  iframe.style.flexGrow = '1' // 使iframe占据剩余空间
-  iframe.style.borderRadius = '15px'
+  const iframe = document.createElement('iframe');
+  iframe.src = 'https://excalidraw.com/';
+  iframe.style.border = 'none'; // 去掉边框
+  iframe.style.backgroundColor = 'white';
+  iframe.style.flexGrow = '1'; // 使iframe占据剩余空间
+  iframe.style.borderRadius = '15px';
 
-  return iframe
+  return iframe;
 }
 
 // 创建窗口元素的函数
 function createWindow(iframe: HTMLIFrameElement) {
-  const windowDiv = document.createElement('div')
-  windowDiv.style.position = 'fixed'
-  windowDiv.style.top = '20px'
-  windowDiv.style.right = '20px'
-  windowDiv.style.width = '500px'
-  windowDiv.style.height = '700px'
-  windowDiv.style.zIndex = '10000'
-  windowDiv.style.display = 'none' // 初始隐藏
-  windowDiv.style.resize = 'both' // 允许调整大小
-  windowDiv.style.overflow = 'hidden' // 允许滚动
-  windowDiv.style.padding = '10px' // 设置内边距
-  windowDiv.style.backgroundColor = '#f0f0f0'
-  windowDiv.style.borderRadius = '15px' // 设置圆角
-  windowDiv.style.display = 'flex' // 使用flex布局
-  windowDiv.style.flexDirection = 'column' // 垂直排列
+  const windowDiv = document.createElement('div');
+  windowDiv.style.position = 'fixed'; // 保持为固定定位
+  windowDiv.style.top = '20px';
+
+  // 计算 left 值
+  const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
+  const windowWidth = 500; // 窗口的初始宽度
+  const rightMargin = 20; // 原来距离右侧的距离
+  const leftValue = viewportWidth - windowWidth - rightMargin;
+
+  windowDiv.style.left = `${leftValue}px`; // 使用计算出的 left 值
+  windowDiv.style.width = `${windowWidth}px`;
+  windowDiv.style.height = '700px';
+  windowDiv.style.zIndex = '10000';
+  windowDiv.style.overflow = 'hidden'; // 允许滚动
+  windowDiv.style.padding = '10px'; // 设置内边距
+  windowDiv.style.backgroundColor = '#f0f0f0';
+  windowDiv.style.borderRadius = '15px'; // 设置圆角
+  windowDiv.style.display = 'none'; // 初始隐藏
+  windowDiv.style.flexDirection = 'column'; // 垂直排列
+
+  // 初始化 data-x 和 data-y 属性
+  windowDiv.setAttribute('data-x', '0');
+  windowDiv.setAttribute('data-y', '0');
 
   // 创建标题栏
-  const titleBar = document.createElement('div')
-  titleBar.style.backgroundColor = '#f0f0f0' // 标题栏背景颜色
-  titleBar.style.cursor = 'move' // 鼠标指针样式
-  titleBar.style.padding = '0 10px 10px 10px' // 标题栏内边距
-  titleBar.textContent = 'Move me' // 标题栏文本
+  const titleBar = document.createElement('div');
+  titleBar.style.backgroundColor = '#f0f0f0'; // 标题栏背景颜色
+  titleBar.style.cursor = 'move'; // 鼠标指针样式
+  titleBar.style.padding = '0 10px 10px 10px'; // 标题栏内边距
+  titleBar.textContent = 'Move me'; // 标题栏文本
 
-  windowDiv.appendChild(titleBar)
-  windowDiv.appendChild(iframe)
+  windowDiv.appendChild(titleBar);
+  windowDiv.appendChild(iframe);
 
-  // 允许拖动窗口
-  let isDragging = false
-  let isResizing = false
-  let offsetX: number, offsetY: number
-  let startWidth: number, startHeight: number
+  let isInteracting = false; // 新增：跟踪是否正在交互
+  let resizeOverlay: HTMLDivElement | null = null;
 
-  titleBar.addEventListener('mousedown', (e) => {
-    isDragging = true
-    offsetX = e.clientX - windowDiv.getBoundingClientRect().left
-    offsetY = e.clientY - windowDiv.getBoundingClientRect().top
-  })
+  function createResizeOverlay() {
+    const overlay = document.createElement('div');
+    overlay.style.position = 'fixed';
+    overlay.style.top = '0';
+    overlay.style.left = '0';
+    overlay.style.width = '100%';
+    overlay.style.height = '100%';
+    overlay.style.zIndex = '10002'; // 确保在最上层
+    overlay.style.cursor = 'se-resize'; // 或根据调整方向设置不同的 cursor
+    return overlay;
+  }
 
-  // 添加鼠标移动事件以处理窗口大小调整
-  windowDiv.addEventListener('mousemove', (e) => {
-    const rect = windowDiv.getBoundingClientRect()
-    const isOnLeftEdge = e.clientX >= rect.left - 10 && e.clientX <= rect.left
-    const isOnRightEdge = e.clientX >= rect.right - 10 && e.clientX <= rect.right
-    const isOnTopEdge = e.clientY >= rect.top - 10 && e.clientY <= rect.top
-    const isOnBottomEdge = e.clientY >= rect.bottom - 10 && e.clientY <= rect.bottom
+  // 使用 Interact.js 实现拖拽和调整大小
+  interact(titleBar)
+    .draggable({
+      listeners: {
+        start() {
+          isInteracting = true;
+        },
+        move(event) {
+          if (!isInteracting) return; // 如果不在交互状态，则不执行移动逻辑
+          const target = windowDiv;
+          const x = (parseFloat(target.getAttribute('data-x') || '0') || 0) + event.dx;
+          const y = (parseFloat(target.getAttribute('data-y') || '0') || 0) + event.dy;
 
-    const isOnTopLeftCorner = isOnLeftEdge && isOnTopEdge
-    const isOnTopRightCorner = isOnRightEdge && isOnTopEdge
-    const isOnBottomLeftCorner = isOnLeftEdge && isOnBottomEdge
-    const isOnBottomRightCorner = isOnRightEdge && isOnBottomEdge
+          target.style.transform = `translate(${x}px, ${y}px)`;
+          target.setAttribute('data-x', x.toString());
+          target.setAttribute('data-y', y.toString());
+        },
+        end() {
+          isInteracting = false;
+        },
+      },
+    });
 
-    if (isOnBottomRightCorner || isOnTopLeftCorner) {
-      windowDiv.style.cursor = 'nwse-resize' // 右下角或左上角
-    }
-    else if (isOnBottomLeftCorner || isOnTopRightCorner) {
-      windowDiv.style.cursor = 'nesw-resize' // 左下角或右上角
-    }
-    else if (isOnRightEdge || isOnLeftEdge) {
-      windowDiv.style.cursor = 'ew-resize' // 右边或左边
-    }
-    else if (isOnBottomEdge || isOnTopEdge) {
-      windowDiv.style.cursor = 'ns-resize' // 底边或顶边
-    }
-    else {
-      windowDiv.style.cursor = 'default' // 默认光标
-    }
-  })
+  interact(windowDiv)
+    .resizable({
+      edges: { left: true, right: true, bottom: true }, // 移除 top 边界
+      listeners: {
+        start() {
+          isInteracting = true;
+          resizeOverlay = createResizeOverlay();
+          document.body.appendChild(resizeOverlay);
+        },
+        move(event) {
+          if (!isInteracting) return; // 如果不在交互状态，则不执行调整大小逻辑
 
-  windowDiv.addEventListener('mousedown', (e) => {
-    const rect = windowDiv.getBoundingClientRect()
-    if (e.clientX >= rect.right - 10 && e.clientY >= rect.bottom - 10) {
-      isResizing = true
-      startWidth = rect.width
-      startHeight = rect.height
-    }
-    else if (e.clientX <= rect.left + 10 && e.clientY >= rect.bottom - 10) {
-      isResizing = true
-      startWidth = rect.width
-      startHeight = rect.height
-      offsetX = -10 // 处理左边
-    }
-    else if (e.clientX >= rect.right - 10 && e.clientY <= rect.top + 10) {
-      isResizing = true
-      startWidth = rect.width
-      startHeight = rect.height
-      offsetY = -10 // 处理上边
-    }
-    else if (e.clientX <= rect.left + 10 && e.clientY <= rect.top + 10) {
-      isResizing = true
-      startWidth = rect.width
-      startHeight = rect.height
-      offsetX = -10 // 处理左边
-      offsetY = -10 // 处理上边
-    }
-    else if (e.clientX >= rect.right - 10 && e.clientY >= rect.top && e.clientY <= rect.bottom) {
-      isResizing = true
-      startWidth = rect.width
-      startHeight = rect.height
-      offsetY = -10 // 处理上边
-    }
-    else if (e.clientX <= rect.left + 10 && e.clientY >= rect.top && e.clientY <= rect.bottom) {
-      isResizing = true
-      startWidth = rect.width
-      startHeight = rect.height
-      offsetY = -10 // 处理上边
-    }
-  })
+          const target = event.target as HTMLElement;
+          let x = parseFloat(target.getAttribute('data-x') || '0') || 0;
+          let y = parseFloat(target.getAttribute('data-y') || '0') || 0;
 
-  document.addEventListener('mousemove', (e) => {
-    if (isDragging) {
-      windowDiv.style.left = `${e.clientX - offsetX}px`
-      windowDiv.style.top = `${e.clientY - offsetY}px`
-    }
-    else if (isResizing) {
-      const rect = windowDiv.getBoundingClientRect()
-      if (offsetX === -10 && offsetY === -10) { // 左上角
-        const newWidth = startWidth - (e.clientX - rect.left)
-        const newHeight = startHeight - (e.clientY - rect.top)
-        windowDiv.style.width = `${newWidth}px`
-        windowDiv.style.height = `${newHeight}px`
-        windowDiv.style.left = `${e.clientX}px`
-        windowDiv.style.top = `${e.clientY}px`
-      }
-      else if (offsetX === -10) { // 左边
-        const newWidth = startWidth - (e.clientX - rect.left)
-        windowDiv.style.width = `${newWidth}px`
-        windowDiv.style.left = `${e.clientX}px`
-      }
-      else if (offsetY === -10) { // 上边
-        const newHeight = startHeight - (e.clientY - rect.top)
-        windowDiv.style.height = `${newHeight}px`
-        windowDiv.style.top = `${e.clientY}px`
-      }
-      else { // 右下角
-        const newWidth = startWidth + (e.clientX - rect.left - startWidth)
-        const newHeight = startHeight + (e.clientY - rect.top - startHeight)
-        windowDiv.style.width = `${newWidth}px`
-        windowDiv.style.height = `${newHeight}px`
-      }
-    }
-  })
+          // 更新宽度高度
+          const width = event.rect.width;
+          const height = event.rect.height;
 
+          // 更新位置
+          if (event.edges.left) {
+            x += event.deltaRect.left;
+          }
+
+          Object.assign(target.style, {
+            width: `${width}px`,
+            height: `${height}px`,
+            transform: `translate(${x}px, ${y}px)`,
+          });
+
+          target.setAttribute('data-x', x.toString());
+          target.setAttribute('data-y', y.toString());
+        },
+        end() {
+          isInteracting = false;
+          if (resizeOverlay) {
+            document.body.removeChild(resizeOverlay);
+            resizeOverlay = null;
+          }
+        },
+      },
+    });
+
+  // 添加全局 mouseup 事件监听器
   document.addEventListener('mouseup', () => {
-    isDragging = false
-    isResizing = false
-    windowDiv.style.cursor = 'default' // 重置光标
-  })
+    if (isInteracting) {
+      isInteracting = false;
+      if (resizeOverlay) {
+        document.body.removeChild(resizeOverlay);
+        resizeOverlay = null;
+      }
+    }
+  });
 
-  return windowDiv
+  // 禁用文本选择
+  windowDiv.addEventListener('mousedown', (e) => {
+    e.preventDefault(); // 防止文本选择
+  });
+
+  return windowDiv;
 }
 
 // 主函数
 (async () => {
-  const button = createButton()
-  document.body.appendChild(button)
+  const button = createButton();
+  document.body.appendChild(button);
 
-  const iframe = createIframe()
-  const windowDiv = createWindow(iframe)
-  document.body.appendChild(windowDiv)
+  const iframe = createIframe();
+  const windowDiv = createWindow(iframe);
+  document.body.appendChild(windowDiv);
 
   // 按钮点击事件
   button.addEventListener('click', () => {
     // 切换窗口的显示和隐藏
     if (windowDiv.style.display === 'none') {
-      windowDiv.style.display = 'block' // 显示窗口
+      windowDiv.style.display = 'flex'; // 显示窗口
+    } else {
+      windowDiv.style.display = 'none'; // 隐藏窗口
     }
-    else {
-      windowDiv.style.display = 'none' // 隐藏窗口
-    }
-  })
-})()
+  });
+})();

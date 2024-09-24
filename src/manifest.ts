@@ -3,7 +3,7 @@ import type { Manifest } from 'webextension-polyfill'
 import type PkgType from '../package.json'
 import { isDev, isFirefox, port, r } from '../scripts/utils'
 
-export async function getManifest() {
+export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
   const pkg = await fs.readJSON(r('package.json')) as typeof PkgType
 
   // update this file to update this manifest.json
@@ -36,7 +36,7 @@ export async function getManifest() {
     },
     permissions: [
       'storage',
-      'activeTab',
+      'activeTab'
     ],
     host_permissions: [
       'https://www.producthunt.com/*',
@@ -51,12 +51,10 @@ export async function getManifest() {
         ],
       },
     ],
-    web_accessible_resources: [
-      {
-        resources: ['dist/contentScripts/style.css'],
-        matches: ['<all_urls>'],
-      },
-    ],
+    web_accessible_resources: [{
+      resources: ['assets/pencil.png'],
+      matches: ['<all_urls>'],
+    }],
     content_security_policy: {
       extension_pages: isDev
         // this is required on dev for Vite script to load
