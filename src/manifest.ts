@@ -35,8 +35,8 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
       128: './assets/icon.png',
     },
     permissions: [
-      'storage',
-      'activeTab'
+      // 'storage',
+      // 'activeTab'
     ],
     host_permissions: [
       'https://www.producthunt.com/*',

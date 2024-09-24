@@ -1,10 +1,10 @@
 {
-  "name": "free-draw-extension",
-  "displayName": "Free Draw",
+  "name": "embed-page-extension",
+  "displayName": "Embed Page",
   "version": "0.1.0",
   "private": true,
   "packageManager": "pnpm@9.9.0",
-  "description": "A browser extension that filter Product Hunt website free products",
+  "description": "A browser extension that can embed any webpage",
   "scripts": {
     "dev": "npm run clear && cross-env NODE_ENV=development run-p dev:*",
     "dev-firefox": "npm run clear && cross-env NODE_ENV=development EXTENSION=firefox run-p dev:*",

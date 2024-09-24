@@ -1,32 +1,30 @@
 ## What
-This is a browser extension that filter Product Hunt website free products
+This is a browser extension that can embed any webpage.
 
-This plugin is suitable for the following scenarios:
+Currently, the plugin only nests the **Excalidraw** website.
+This way, you can browse the web while drawing.
+When you have only one computer and no monitor, this plugin becomes very useful as it saves you the time of switching between different browser tabs. It is also more convenient than manually adjusting two browser windows.
 
-- When content creators start recording videos
-- When teachers start giving lectures
-- When developers conduct team technical sharing
-- When employees start internal meeting screen sharing
 
-In these scenarios, you can enable browser privacy protection with one click by hiding all pinned browser extensions.
+## Feature
 
-Save half a minute with each use.
-
-At the same time, you get a cleaner and more aesthetically pleasing interface, which also makes sharing itself more focused.
+-  Embed any webpage(Future)
+-  Drag to move the embeded window position and resize the embeded window.
 
 ## Install
 
 This extension has been published to the app store.
 You can complete the installation in the following ways:
 - [Install from Chrome app store](https://chromewebstore.google.com/detail/up-mode/maiiinianakmklepgbpffmgmhpnoniem?hl=zh-CN&utm_source=ext_sidebar)
-- [Download ZIP](https://github.com/cunzaizhuyi/up-mode-extension/raw/main/extension.zip)
+- [Download ZIP](https://github.com/cunzaizhuyi/embed-page-extension/raw/main/extension.zip)
+
 
 ## Usage
 
 ## User Group
 
-<img src="https://github.com/cunzaizhuyi/up-mode-extension/raw/main/wx-group2.jpg" width="200" height="280">
+<img src="https://github.com/cunzaizhuyi/embed-page-extension/raw/main/wx-group2.jpg" width="200" height="280">
 
 ## sponsor
 
-<img src="https://github.com/cunzaizhuyi/up-mode-extension/raw/main/coffee.jpg" width="200" height="215">
+<img src="https://github.com/cunzaizhuyi/embed-page-extension/raw/main/coffee.jpg" width="200" height="215">
