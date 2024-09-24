@@ -49,6 +49,9 @@ export async function getManifest(): Promise<Manifest.WebExtensionManifest> {
         js: [
           'dist/contentScripts/index.global.js',
         ],
+        css: [
+          'dist/contentScripts/style.css', // 添加这一行
+        ],
       },
     ],
     web_accessible_resources: [{

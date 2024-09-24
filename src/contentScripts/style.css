@@ -1,40 +1,57 @@
-/* styles.css */
-
-/* 按钮样式 */
-.a-button {
+.fd-button {
   position: fixed;
-  bottom: 20px; /* 距离底部20px */
-  right: 20px; /* 距离右侧20px */
-  z-index: 10001; /* 确保按钮在其他元素之上 */
-  width: 50px; /* 按钮宽度 */
-  height: 50px; /* 按钮高度 */
-  border-radius: 50%; /* 圆形按钮 */
-  border: none; /* 去掉边框 */
-  background-color: white; /* 背景颜色 */
-  cursor: pointer; /* 鼠标指针样式 */
+  bottom: 20px;
+  right: 20px;
+  z-index: 10001;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 1px solid #ccc;
+  background-color: white;
+  cursor: pointer;
+  padding: 5px;
+  overflow: hidden;
 }
 
-/* 窗口样式 */
-.a-window {
+.fd-button-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.fd-window {
   position: fixed;
   top: 20px;
-  right: 20px;
+  z-index: 10000;
+  overflow: hidden;
+  padding: 10px;
+  background-color: #f0f0f0;
+  border-radius: 15px;
+  display: none;
+  flex-direction: column;
   width: 500px;
   height: 700px;
-  z-index: 10000;
-  display: none; /* 初始隐藏 */
-  resize: both; /* 允许调整大小 */
-  overflow: hidden; /* 允许滚动 */
-  padding: 10px; /* 设置内边距 */
-  background-color: #f0f0f0;
-  border-radius: 15px; /* 设置圆角 */
-  display: flex; /* 使用flex布局 */
-  flex-direction: column; /* 垂直排列 */
 }
 
-/* 标题栏样式 */
-.title-bar {
-  background-color: #f0f0f0; /* 标题栏背景颜色 */
-  cursor: move; /* 鼠标指针样式 */
-  padding: 0 10px 10px 10px; /* 标题栏内边距 */
+.fd-title-bar {
+  background-color: #f0f0f0;
+  cursor: move;
+  padding: 0 10px 10px 10px;
+}
+
+.fd-iframe {
+  border: none;
+  background-color: white;
+  flex-grow: 1;
+  border-radius: 15px;
+}
+
+.fd-resize-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 10002;
+  cursor: se-resize;
 }

@@ -1,34 +1,18 @@
 import browser from 'webextension-polyfill';
 import interact from 'interactjs';
+import './style.css';
 
 // 创建按钮元素的函数
 function createButton() {
   const button = document.createElement('button');
-
-  // 设置按钮的样式以固定在右下角并使其圆形
-  button.style.position = 'fixed';
-  button.style.bottom = '20px'; // 距离底部20px
-  button.style.right = '20px'; // 距离右侧20px
-  button.style.zIndex = '10001'; // 确保按钮在其他元素之上
-  button.style.width = '50px'; // 按钮宽度
-  button.style.height = '50px'; // 按钮高度
-  button.style.borderRadius = '50%'; // 圆形按钮
-  button.style.border = '1px solid #ccc'; 
-  button.style.backgroundColor = 'white'; // 背景颜色
-  button.style.cursor = 'pointer'; // 鼠标指针样式
-  button.style.padding = '0'; // 移除内边距
-  button.style.overflow = 'hidden'; // 确保图片不会溢出按钮
-  button.style.padding = '5px';
+  button.className = 'fd-button';
 
   // 创建图片元素
   const img = document.createElement('img');
-  img.src = browser.runtime.getURL('assets/pencil.png'); // 假设图片位于 assets 文件夹中
-  img.style.width = '100%';
-  img.style.height = '100%';
-  img.style.objectFit = 'cover'; // 确保图片填满按钮
+  img.src = browser.runtime.getURL('assets/pencil.png');
+  img.className = 'fd-button-img';
 
   button.appendChild(img);
-
   return button;
 }
 
@@ -36,19 +20,14 @@ function createButton() {
 function createIframe() {
   const iframe = document.createElement('iframe');
   iframe.src = 'https://excalidraw.com/';
-  iframe.style.border = 'none'; // 去掉边框
-  iframe.style.backgroundColor = 'white';
-  iframe.style.flexGrow = '1'; // 使iframe占据剩余空间
-  iframe.style.borderRadius = '15px';
-
+  iframe.className = 'fd-iframe';
   return iframe;
 }
 
 // 创建窗口元素的函数
 function createWindow(iframe: HTMLIFrameElement) {
   const windowDiv = document.createElement('div');
-  windowDiv.style.position = 'fixed'; // 保持为固定定位
-  windowDiv.style.top = '20px';
+  windowDiv.className = 'fd-window';
 
   // 计算 left 值
   const viewportWidth = window.innerWidth || document.documentElement.clientWidth;
@@ -57,15 +36,6 @@ function createWindow(iframe: HTMLIFrameElement) {
   const leftValue = viewportWidth - windowWidth - rightMargin;
 
   windowDiv.style.left = `${leftValue}px`; // 使用计算出的 left 值
-  windowDiv.style.width = `${windowWidth}px`;
-  windowDiv.style.height = '700px';
-  windowDiv.style.zIndex = '10000';
-  windowDiv.style.overflow = 'hidden'; // 允许滚动
-  windowDiv.style.padding = '10px'; // 设置内边距
-  windowDiv.style.backgroundColor = '#f0f0f0';
-  windowDiv.style.borderRadius = '15px'; // 设置圆角
-  windowDiv.style.display = 'none'; // 初始隐藏
-  windowDiv.style.flexDirection = 'column'; // 垂直排列
 
   // 初始化 data-x 和 data-y 属性
   windowDiv.setAttribute('data-x', '0');
@@ -73,9 +43,7 @@ function createWindow(iframe: HTMLIFrameElement) {
 
   // 创建标题栏
   const titleBar = document.createElement('div');
-  titleBar.style.backgroundColor = '#f0f0f0'; // 标题栏背景颜色
-  titleBar.style.cursor = 'move'; // 鼠标指针样式
-  titleBar.style.padding = '0 10px 10px 10px'; // 标题栏内边距
+  titleBar.className = 'fd-title-bar';
   titleBar.textContent = 'Move me'; // 标题栏文本
 
   windowDiv.appendChild(titleBar);
@@ -86,13 +54,7 @@ function createWindow(iframe: HTMLIFrameElement) {
 
   function createResizeOverlay() {
     const overlay = document.createElement('div');
-    overlay.style.position = 'fixed';
-    overlay.style.top = '0';
-    overlay.style.left = '0';
-    overlay.style.width = '100%';
-    overlay.style.height = '100%';
-    overlay.style.zIndex = '10002'; // 确保在最上层
-    overlay.style.cursor = 'se-resize'; // 或根据调整方向设置不同的 cursor
+    overlay.className = 'fd-resize-overlay';
     return overlay;
   }
 
