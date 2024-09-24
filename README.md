@@ -5,7 +5,6 @@ Currently, the plugin only nests the **Excalidraw** website.
 This way, you can browse the web while drawing.
 When you have only one computer and no monitor, this plugin becomes very useful as it saves you the time of switching between different browser tabs. It is also more convenient than manually adjusting two browser windows.
 
-
 ## Feature
 
 -  Embed any webpage(Future)
@@ -16,8 +15,7 @@ When you have only one computer and no monitor, this plugin becomes very useful 
 This extension has been published to the app store.
 You can complete the installation in the following ways:
 - [Install from Chrome app store](https://chromewebstore.google.com/detail/up-mode/maiiinianakmklepgbpffmgmhpnoniem?hl=zh-CN&utm_source=ext_sidebar)
-- [Download ZIP](https://github.com/cunzaizhuyi/embed-page-extension/raw/main/extension.zip)
-
+- Download ZIP from release tag
 
 ## Usage
 
