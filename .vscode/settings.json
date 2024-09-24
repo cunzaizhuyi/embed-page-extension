@@ -51,6 +51,5 @@
   "accessibility.signals.positionHasError": {
     "announcement": "off",
     "sound": "off"
-  },
-  "accessibility.signalOptions.volume": 0
+  }
 }

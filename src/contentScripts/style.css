@@ -37,6 +37,7 @@
   background-color: #f0f0f0;
   cursor: move;
   padding: 0 10px 10px 10px;
+  color: black;
 }
 
 .fd-iframe {
