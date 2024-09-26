@@ -19,7 +19,8 @@ if (USE_SIDE_PANEL) {
   browser.sidePanel
     .setPanelBehavior({ openPanelOnActionClick: true })
     .catch((error: unknown) => console.error(error))
-} else {
+}
+else {
   console.warn('Side panel API is not available in this browser.')
 }
 
