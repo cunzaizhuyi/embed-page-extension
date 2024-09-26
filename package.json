@@ -18,7 +18,8 @@
     "build:web": "vite build",
     "build:js": "vite build --config vite.config.content.mts",
     "pack": "cross-env NODE_ENV=production run-p pack:*",
-    "pack:zip": "rimraf extension.zip && jszip-cli add extension/* -o ./extension.zip",
+    "pack:zip": "rimraf extension.zip && jszip-cli add ./extension/* -o ./extension.zip",
+    "pack:zip2": "rimraf extension.zip && zip -r extension.zip extension/*",
     "pack:crx": "crx pack extension -o ./extension.crx",
     "pack:xpi": "cross-env WEB_EXT_ARTIFACTS_DIR=./ web-ext build --source-dir ./extension --filename extension.xpi --overwrite-dest",
     "start:chromium": "web-ext run --source-dir ./extension --target=chromium",
@@ -29,6 +30,9 @@
     "test:e2e": "playwright test",
     "postinstall": "simple-git-hooks",
     "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "interactjs": "^1.10.27"
   },
   "devDependencies": {
     "@antfu/eslint-config": "^2.27.0",
@@ -75,8 +79,5 @@
   },
   "lint-staged": {
     "*": "eslint --fix"
-  },
-  "dependencies": {
-    "interactjs": "^1.10.27"
   }
 }

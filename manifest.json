@@ -1,0 +1,15 @@
+{
+  "permissions": [
+    "activeTab",
+    "tabs"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["src/contentScripts/index.ts"]
+    }
+  ],
+  "host_permissions": [
+    "<all_urls>"
+  ]
+}

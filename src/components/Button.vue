@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed, defineEmits, defineProps } from 'vue'
+import { computed } from 'vue'
 
 const props = defineProps({
   disabled: {
@@ -20,7 +20,7 @@ const props = defineProps({
   },
 })
 
-const emit = defineEmits()
+const emit = defineEmits(['click'])
 
 const computedStyle = computed(() => ({
   backgroundColor: props.bgColor,
@@ -39,12 +39,7 @@ function onClick() {
 </script>
 
 <template>
-  <button
-    :disabled="disabled"
-    class="my-button"
-    :style="computedStyle"
-    @click="onClick"
-  >
+  <button :disabled="disabled" class="my-button" :style="computedStyle" @click="onClick">
     <slot>按钮</slot> <!-- 使用 slot 传递文本 -->
   </button>
 </template>

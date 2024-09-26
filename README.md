@@ -7,14 +7,14 @@ When you have only one computer and no monitor, this plugin becomes very useful 
 
 ## Feature
 
--  Embed any webpage(Future)
+-  Embed any webpage(if CSP allow)
 -  Drag to move the embeded window position and resize the embeded window.
 
 ## Install
 
 This extension has been published to the app store.
 You can complete the installation in the following ways:
-- [Install from Chrome app store](https://chromewebstore.google.com/detail/up-mode/maiiinianakmklepgbpffmgmhpnoniem?hl=zh-CN&utm_source=ext_sidebar)
+- [Install from Chrome app store](https://chromewebstore.google.com/detail/embed-page-extension/maiiinianakmklepgbpffmgmhpnoniem?hl=zh-CN&utm_source=ext_sidebar)
 - Download ZIP from release tag
 
 ## Usage
