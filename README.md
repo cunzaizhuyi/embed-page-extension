@@ -15,6 +15,7 @@ When you have only one computer and no monitor, this plugin becomes very useful 
 This extension has been published to the app store.
 You can complete the installation in the following ways:
 
+- [Chrome App Store](https://chromewebstore.google.com/detail/embed-page/igmkkaffhdodfkecocbncmmnkjaahhld?authuser=0&hl=zh-CN)
 - Download ZIP from release tag
 
 ## Usage
